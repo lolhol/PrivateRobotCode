@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -21,13 +22,13 @@ public class ScoreTopLeft extends SequentialCommandGroup {
   public ScoreTopLeft(DriveSubsystem m_drive, ArmSubsystem m_arm) {
     addCommands(
       new AlignWithTag(m_drive),
-      new RotateAmount(m_drive, ArmConstants.kScoreRotationAngle),
+      new RotateAmount(m_drive, Constants.ARM.kScoreRotationAngle),
       new DriveToScore(m_drive),
-      new RotateAmount(m_drive, -ArmConstants.kScoreRotationAngle),
+      new RotateAmount(m_drive, -Constants.ARM.kScoreRotationAngle),
       new SetArm(
         m_arm,
-        ArmConstants.kPitchConeTopScoreMod,
-        ArmConstants.kReachConeTopScoreMod
+        Constants.ARM.kPitchConeTopScoreMod,
+        Constants.ARM.kReachConeTopScoreMod
       ),
       new OpenClaw(),
       new RetractArm(m_arm)

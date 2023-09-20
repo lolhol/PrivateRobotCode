@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.subsystems;
+package frc.robot.subsystems.util.arm;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
@@ -14,12 +14,12 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ReachSubsystem extends SubsystemBase {
 
-  private final TalonSRX m_reachMotor = new TalonSRX(9);
-  private final DutyCycleEncoder m_reachEncoder = new DutyCycleEncoder(0); // pitch
-  private final double m_reachOffset = m_reachEncoder.get();
-  private final double lowerLimit = m_reachOffset + 0.1;
-  private final double upperLimit = lowerLimit + 10;
-  private final double motorCoefficient = 1;
+  final TalonSRX m_reachMotor = new TalonSRX(9);
+  final DutyCycleEncoder m_reachEncoder = new DutyCycleEncoder(0); // pitch
+  final double m_reachOffset = m_reachEncoder.get();
+  final double lowerLimit = m_reachOffset + 0.1;
+  final double upperLimit = lowerLimit + 10;
+  final double motorCoefficient = 1;
 
   //3.59
   //-4.44

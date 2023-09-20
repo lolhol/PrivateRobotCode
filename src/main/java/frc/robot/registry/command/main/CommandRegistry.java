@@ -1,6 +1,7 @@
 package frc.robot.registry.command.main;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.registry.Registry;
 import frc.robot.registry.bus.events.Tick;
 import frc.robot.registry.bus.markers.SubscribeEvent;
@@ -16,7 +17,7 @@ public class CommandRegistry extends SubsystemBase {
   List<ListClass> commands = new ArrayList<>();
 
   public void registerCommands() {
-    Registry.EVENT_BUS.register(this);
+    Constants.REGISTRY.EVENT_BUS.register(this);
   }
 
   public void regCommand(Command command) {

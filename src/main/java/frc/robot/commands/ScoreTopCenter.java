@@ -4,14 +4,16 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 /** An example command that uses an example subsystem. */
 public class ScoreTopCenter extends SequentialCommandGroup {
+
   /**
    * Creates a new ExampleCommand.
    *
@@ -19,13 +21,15 @@ public class ScoreTopCenter extends SequentialCommandGroup {
    */
   public ScoreTopCenter(DriveSubsystem m_drive, ArmSubsystem m_arm) {
     addCommands(
-    new AlignWithTag(m_drive),
-    new SetArm(m_arm, ArmConstants.kPitchCubeTopScoreMod, ArmConstants.kReachCubeTopScoreMod),
-    new OpenClaw(),
-    new RetractArm(m_arm)
+      new AlignWithTag(m_drive),
+      new SetArm(
+        m_arm,
+        Constants.ARM.kPitchCubeTopScoreMod,
+        Constants.ARM.kReachCubeTopScoreMod
+      ),
+      new OpenClaw(),
+      new RetractArm(m_arm)
     );
-
   }
-
   // Called once the command ends or is interrupted.
 }

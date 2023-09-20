@@ -4,10 +4,7 @@
 
 package frc.robot;
 
-
-
-
-
+import edu.wpi.first.wpilibj.Joystick;
 // import edu.wpi.first.math.controller.PIDController;
 // import edu.wpi.first.math.controller.ProfiledPIDController;
 // import edu.wpi.first.math.geometry.Pose2d;
@@ -18,18 +15,16 @@ package frc.robot;
 // import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.Joystick;
-
-// import frc.robot.Constants.AutoConstants;
-// import frc.robot.Constants.DriveConstants;
-import frc.robot.Constants.OIConstants;
-import frc.robot.subsystems.DriveSubsystem;
 // import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 // import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+// import frc.robot.Constants.AutoConstants;
+// import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.OIConstants;
 // import java.util.List;
 import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.DriveSubsystem;
 
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -38,6 +33,7 @@ import frc.robot.subsystems.ArmSubsystem;
  * (including subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+
   // The robot's subsystems
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
   private final ArmSubsystem m_armSubsystem = new ArmSubsystem();
@@ -45,7 +41,9 @@ public class RobotContainer {
   // The driver's controller
 
   // 4765: converted this from xbox to joystick
-  Joystick m_driverController = new Joystick(OIConstants.kDriverControllerPort);
+  Joystick m_driverController = new Joystick(
+    Constants.I_CONSTANTS.kDriverControllerPort
+  );
 
   // Arm Controller
   XboxController m_armController = new XboxController(1);
@@ -67,22 +65,30 @@ public class RobotContainer {
     // for driving command
 
     m_robotDrive.setDefaultCommand(
-        // 4765: Controller commands converted for various joysticks
-        new RunCommand(
-            () -> m_robotDrive.drive(
-                m_driverController.getRawAxis(1) * -1,
-                m_driverController.getRawAxis(0) * -1,
-                m_driverController.getRawAxis(2) * -1,
-                false),
-            m_robotDrive));
+      // 4765: Controller commands converted for various joysticks
+      new RunCommand(
+        () ->
+          m_robotDrive.drive(
+            m_driverController.getRawAxis(1) * -1,
+            m_driverController.getRawAxis(0) * -1,
+            m_driverController.getRawAxis(2) * -1,
+            false
+          ),
+        m_robotDrive
+      )
+    );
 
     m_armSubsystem.setDefaultCommand(
-        new RunCommand(
-            () -> m_armSubsystem.move(
-              m_armController.getRawAxis(1) * -1,
-              m_armController.getRawAxis(3),
-              m_armController.getPOV()),
-            m_armSubsystem));
+      new RunCommand(
+        () ->
+          m_armSubsystem.move(
+            m_armController.getRawAxis(1) * -1,
+            m_armController.getRawAxis(3),
+            m_armController.getPOV()
+          ),
+        m_armSubsystem
+      )
+    );
   }
 
   /**
@@ -99,7 +105,6 @@ public class RobotContainer {
     // 4765: To be used to assign buttons for things like using the arm and the claw
 
   }
-
   // 4765: Commented out the autonomous code that because it uses odometry which
   // we don't need yet
 

@@ -4,21 +4,23 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
 public class RetractArm extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+
+  @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final ArmSubsystem m_arm;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
-   * 
+   *
    */
   public RetractArm(ArmSubsystem subsystem) {
     m_arm = subsystem;
@@ -33,9 +35,7 @@ public class RetractArm extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    m_arm.setArm(ArmConstants.kRetractedPitch, ArmConstants.kRetractedReach);
-
+    m_arm.setArm(Constants.ARM.kRetractedPitch, Constants.ARM.kRetractedReach);
     //april tag math
 
   }

@@ -36,7 +36,6 @@ import frc.robot.registry.example.event.EventExample;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.SubsystemTest;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.concurrent.Executors;
@@ -56,12 +55,13 @@ public class RobotContainer {
 
   private final ArmSubsystem m_armSubsystem = new ArmSubsystem();
   private final ClawSubsystem m_clawSubsystem = new ClawSubsystem();
-  private final SubsystemTest m_testSubsystem = new SubsystemTest();
 
   // The driver's controller
 
   // 4765: converted this from xbox to joystick
-  Joystick m_driverController = new Joystick(OIConstants.kDriverControllerPort);
+  Joystick m_driverController = new Joystick(
+    Constants.I_CONSTANTS.kDriverControllerPort
+  );
 
   // Arm Controller
   XboxController m_armController = new XboxController(1);
@@ -130,7 +130,7 @@ public class RobotContainer {
 
     ScheduledExecutorService threadPool = Executors.newScheduledThreadPool(1);
     threadPool.scheduleAtFixedRate(
-      () -> Registry.EVENT_BUS.post(new MillisecondEvent()),
+      () -> Constants.REGISTRY.EVENT_BUS.post(new MillisecondEvent()),
       initialDelaySeconds,
       1,
       TimeUnit.MILLISECONDS

@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.subsystems;
+package frc.robot.subsystems.util.arm;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
@@ -17,13 +17,13 @@ import frc.robot.Constants.ArmConstants;
 
 public class PitchSubsystem extends SubsystemBase {
 
-  private final TalonSRX m_pitchMotor = new TalonSRX(5);
-  private final DutyCycleEncoder m_pitchEncoder = new DutyCycleEncoder(5); // pitch
-  private final double m_pitchOffset = m_pitchEncoder.get();
-  private final double upperLimit = m_pitchOffset - 0.01;
-  private final double lowerLimit = upperLimit - 1.4;
-  private final double upMotorCoefficient = 0.15;
-  private final double downMotorCoefficient = 0.35;
+  final TalonSRX m_pitchMotor = new TalonSRX(5);
+  final DutyCycleEncoder m_pitchEncoder = new DutyCycleEncoder(5); // pitch
+  final double m_pitchOffset = m_pitchEncoder.get();
+  final double upperLimit = m_pitchOffset - 0.01;
+  final double lowerLimit = upperLimit - 1.4;
+  final double upMotorCoefficient = 0.15;
+  final double downMotorCoefficient = 0.35;
 
   //0.93
   //0.5

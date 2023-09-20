@@ -4,14 +4,16 @@
 
 package frc.robot.commands;
 
-import frc.robot.Constants.ArmConstants;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants;
+import frc.robot.Constants.ArmConstants;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
 public class PickUpFromBotShelf extends SequentialCommandGroup {
+
   /**
    * Creates a new ExampleCommand.
    *
@@ -19,14 +21,16 @@ public class PickUpFromBotShelf extends SequentialCommandGroup {
    */
   public PickUpFromBotShelf(DriveSubsystem m_drive, ArmSubsystem m_arm) {
     addCommands(
-    new OpenClaw(),
-    new AlignWithTag(m_drive),
-    new SetArm(m_arm, ArmConstants.kPitchBotShelfMod, ArmConstants.kReachBotShelfMod),
-    new ClawGrab(),
-    new RetractArm(m_arm)
+      new OpenClaw(),
+      new AlignWithTag(m_drive),
+      new SetArm(
+        m_arm,
+        Constants.ARM.kPitchBotShelfMod,
+        Constants.ARM.kReachBotShelfMod
+      ),
+      new ClawGrab(),
+      new RetractArm(m_arm)
     );
-
   }
-
   // Called once the command ends or is interrupted.
 }
