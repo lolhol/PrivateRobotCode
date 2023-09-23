@@ -1,7 +1,56 @@
 {
-  "name": [{
-    "A": 1
-  }, {
-    "B": 2
-  }]
+  "default": {
+    "Buttons": [
+      {
+        "LeftBumper":  5
+      },
+      {
+        "RightBumper": 6
+      },
+      {
+        "LeftStick": 9
+      },
+      {
+        "RightStick": 10
+      },
+      {
+        "A": 1
+      },
+      {
+        "B": 2
+      },
+      {
+        "X": 3
+      },
+      {
+        "Y": 4
+      },
+      {
+        "Back": 7
+      },
+      {
+        "Start": 8
+      }
+    ],
+    "Axis": [
+      {
+        "LeftX": 0
+      },
+      {
+        "RightX": 4
+      },
+      {
+        "LeftY": 1
+      },
+      {
+        "RightY": 5
+      },
+      {
+        "LeftTrigger": 2
+      },
+      {
+        "RightTrigger": 3
+      }
+    ]
+  }
 }

@@ -7,10 +7,12 @@ public class Button {
 
   int id;
   Buttons label;
+  String name;
 
   public Button(int id, Buttons label) {
     this.id = id;
     this.label = label;
+    this.name = label.toString();
   }
 
   public int getId() {

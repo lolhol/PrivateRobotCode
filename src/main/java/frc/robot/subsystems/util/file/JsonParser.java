@@ -2,7 +2,10 @@ package frc.robot.subsystems.util.file;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import frc.robot.config.util.enums.Axises;
+import frc.robot.config.util.enums.Buttons;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -21,25 +24,66 @@ public class JsonParser {
       return null;
     }
 
+    System.out.println(reader + "!!!!!!");
+
     return gson.fromJson(reader, JsonObject.class);
   }
 
-  public Map<String, Integer> getMap(JsonObject obj, String name) {
-    JsonArray nameArray = obj.getAsJsonArray(name);
+  public Map<Axises, Integer> getMapAxis(
+    JsonObject obj,
+    String name,
+    String subString
+  ) {
+    if (obj != null) {
+      JsonArray nameArray = obj.getAsJsonObject(name).getAsJsonArray(subString);
 
-    // Iterate through the JsonArray and print the contents of each JsonObject
+      Map<Axises, Integer> returnMap = new HashMap<>();
+      for (int i = 0; i < nameArray.size(); i++) {
+        JsonObject nameObject = nameArray.get(i).getAsJsonObject();
 
-    Map<String, Integer> returnMap = new HashMap<>();
+        for (Map.Entry<String, JsonElement> entry : nameObject.entrySet()) {
+          String axisName = entry.getKey();
+          Axises axis = Axises.valueOf(axisName);
 
-    for (int i = 0; i < nameArray.size(); i++) {
-      JsonObject nameObject = nameArray.get(i).getAsJsonObject();
-
-      for (String key : nameObject.keySet()) {
-        int value = nameObject.get(key).getAsInt();
-        returnMap.put(key, value);
+          int value = entry.getValue().getAsInt();
+          returnMap.put(axis, value);
+        }
       }
+
+      return returnMap;
+    } else {
+      System.out.println("OBJECT = NULL!");
     }
 
-    return returnMap;
+    return null;
+  }
+
+  public Map<Buttons, Integer> getMapButton(
+    JsonObject obj,
+    String name,
+    String subString
+  ) {
+    if (obj != null) {
+      JsonArray nameArray = obj.getAsJsonObject(name).getAsJsonArray(subString);
+
+      Map<Buttons, Integer> returnMap = new HashMap<>();
+      for (int i = 0; i < nameArray.size(); i++) {
+        JsonObject nameObject = nameArray.get(i).getAsJsonObject();
+
+        for (Map.Entry<String, JsonElement> entry : nameObject.entrySet()) {
+          String buttonName = entry.getKey();
+          Buttons button = Buttons.valueOf(buttonName);
+
+          int value = entry.getValue().getAsInt();
+          returnMap.put(button, value);
+        }
+      }
+
+      return returnMap;
+    } else {
+      System.out.println("OBJECT = NULL!");
+    }
+
+    return null;
   }
 }

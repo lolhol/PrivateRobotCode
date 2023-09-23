@@ -46,7 +46,7 @@ public class RobotContainer {
 
   // Arm Controller
   XboxController m_armController = new XboxController(0);
-  ControllerButtons buttons = new ControllerButtons(0, "test");
+  ControllerButtons buttons = new ControllerButtons(0, "default");
 
   // 4765: converted this from xbox to joystick
   // XboxController m_driverController = new
@@ -59,10 +59,11 @@ public class RobotContainer {
     configureButtonBindings();
 
     buttons.addButton(new Button(2, Buttons.A));
-
     Constants.REGISTRY.EVENT_BUS.register(new SubsystemTest());
 
-    test.setDefaultCommand(new RunCommand(() -> test.tick(this.buttons), test));
+    test.setDefaultCommand(
+      new RunCommand(() -> test.tick(this.m_armController), test)
+    );
 
     m_robotDrive.setDefaultCommand(
       new RunCommand(

@@ -10,5 +10,16 @@ public enum Buttons {
   X,
   Y,
   Back,
-  Start,
+  Start;
+
+  @Override
+  public String toString() {
+    var name = this.name();
+
+    if (name.endsWith("Bumper")) {
+      return name;
+    }
+
+    return name + "Button";
+  }
 }
