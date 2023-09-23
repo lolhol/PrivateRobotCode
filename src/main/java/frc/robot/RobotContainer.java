@@ -59,6 +59,9 @@ public class RobotContainer {
     configureButtonBindings();
 
     buttons.addButton(new Button(2, Buttons.A));
+
+    Constants.REGISTRY.EVENT_BUS.register(new SubsystemTest());
+
     test.setDefaultCommand(new RunCommand(() -> test.tick(this.buttons), test));
 
     m_robotDrive.setDefaultCommand(

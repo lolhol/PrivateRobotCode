@@ -76,6 +76,8 @@ public class ControllerButtons extends SubsystemBase {
         Constants.REGISTRY.EVENT_BUS.post(
           new KeyPressEvent(button.getKey(), true)
         );
+
+        buttonRegistry.replace(button.getKey(), true);
       }
     }
   }

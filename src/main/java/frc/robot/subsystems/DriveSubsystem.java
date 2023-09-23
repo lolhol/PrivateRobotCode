@@ -5,21 +5,16 @@
 package frc.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
-import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
-import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
-import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.registry.bus.markers.SubscribeEvent;
 
 public class DriveSubsystem extends SubsystemBase {
 
@@ -29,7 +24,7 @@ public class DriveSubsystem extends SubsystemBase {
   // no separate address for driving encoder
   // magnet offset for each turning encoder
   // label for so shuffleboard can show each module separately
-  private final SwerveModule m_frontLeft = new SwerveModule(
+  final SwerveModule m_frontLeft = new SwerveModule(
     Constants.DRIVE.kFrontLeftDriveMotorPort,
     Constants.DRIVE.kFrontLeftTurningMotorPort,
     Constants.DRIVE.kFrontLeftTurningEncoderPort,
@@ -39,7 +34,7 @@ public class DriveSubsystem extends SubsystemBase {
     "FL"
   );
 
-  private final SwerveModule m_rearLeft = new SwerveModule(
+  final SwerveModule m_rearLeft = new SwerveModule(
     Constants.DRIVE.kRearLeftDriveMotorPort,
     Constants.DRIVE.kRearLeftTurningMotorPort,
     Constants.DRIVE.kRearLeftTurningEncoderPort,
@@ -49,7 +44,7 @@ public class DriveSubsystem extends SubsystemBase {
     "RL"
   );
 
-  private final SwerveModule m_frontRight = new SwerveModule(
+  final SwerveModule m_frontRight = new SwerveModule(
     Constants.DRIVE.kFrontRightDriveMotorPort,
     Constants.DRIVE.kFrontRightTurningMotorPort,
     Constants.DRIVE.kFrontRightTurningEncoderPort,
@@ -59,7 +54,7 @@ public class DriveSubsystem extends SubsystemBase {
     "FR"
   );
 
-  private final SwerveModule m_rearRight = new SwerveModule(
+  final SwerveModule m_rearRight = new SwerveModule(
     Constants.DRIVE.kRearRightDriveMotorPort,
     Constants.DRIVE.kRearRightTurningMotorPort,
     Constants.DRIVE.kRearRightTurningEncoderPort,
@@ -91,9 +86,9 @@ public class DriveSubsystem extends SubsystemBase {
   // });
 
   // 4765: Added class variable for each deadband
-  private static final double xSpeedDeadband = Constants.DRIVE.kXSpeedDeadband;
-  private static final double ySpeedDeadband = Constants.DRIVE.kYSpeedDeadband;
-  private static final double rotDeadband = Constants.DRIVE.kRotDeadband;
+  static final double xSpeedDeadband = Constants.DRIVE.kXSpeedDeadband;
+  static final double ySpeedDeadband = Constants.DRIVE.kYSpeedDeadband;
+  static final double rotDeadband = Constants.DRIVE.kRotDeadband;
 
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {}
@@ -180,16 +175,17 @@ public class DriveSubsystem extends SubsystemBase {
       rot = 0;
     }
 
-    var swerveModuleStates = Constants.DRIVE.kDriveKinematics.toSwerveModuleStates(
-      fieldRelative
-        ? ChassisSpeeds.fromFieldRelativeSpeeds(
-          xSpeed,
-          ySpeed,
-          rot,
-          (Rotation2d.fromDegrees(ahrs.getYaw()))
-        )
-        : new ChassisSpeeds(xSpeed, ySpeed, rot)
-    );
+    var swerveModuleStates =
+      Constants.DRIVE.kDriveKinematics.toSwerveModuleStates(
+        fieldRelative
+          ? ChassisSpeeds.fromFieldRelativeSpeeds(
+            xSpeed,
+            ySpeed,
+            rot,
+            (Rotation2d.fromDegrees(ahrs.getYaw()))
+          )
+          : new ChassisSpeeds(xSpeed, ySpeed, rot)
+      );
 
     SwerveDriveKinematics.desaturateWheelSpeeds(
       swerveModuleStates,
@@ -202,7 +198,6 @@ public class DriveSubsystem extends SubsystemBase {
     m_rearRight.setDesiredState(swerveModuleStates[3]);
   }
 
-  @SubscribeEvent
   public void drive(
     double xSpeed,
     double ySpeed,
@@ -253,16 +248,17 @@ public class DriveSubsystem extends SubsystemBase {
         new SwerveModuleState(0.0, new Rotation2d(Math.PI / 4))
       );
     } else {
-      var swerveModuleStates = Constants.DRIVE.kDriveKinematics.toSwerveModuleStates(
-        fieldRelative
-          ? ChassisSpeeds.fromFieldRelativeSpeeds(
-            xSpeed,
-            ySpeed,
-            rot,
-            (Rotation2d.fromDegrees(ahrs.getYaw()))
-          )
-          : new ChassisSpeeds(xSpeed, ySpeed, rot)
-      );
+      var swerveModuleStates =
+        Constants.DRIVE.kDriveKinematics.toSwerveModuleStates(
+          fieldRelative
+            ? ChassisSpeeds.fromFieldRelativeSpeeds(
+              xSpeed,
+              ySpeed,
+              rot,
+              (Rotation2d.fromDegrees(ahrs.getYaw()))
+            )
+            : new ChassisSpeeds(xSpeed, ySpeed, rot)
+        );
 
       SwerveDriveKinematics.desaturateWheelSpeeds(
         swerveModuleStates,
