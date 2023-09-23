@@ -46,6 +46,7 @@ public class ReachSubsystem extends SubsystemBase {
     } else {
       m_reachMotor.set(ControlMode.PercentOutput, axis * motorCoefficient);
     }
+
     SmartDashboard.putNumber("reach", encoderReachValue);
     SmartDashboard.putNumber("Meas Reach", m_reachEncoder.get());
   }

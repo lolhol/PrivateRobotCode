@@ -4,38 +4,20 @@
 
 package frc.robot;
 
-import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.Joystick;
-// import edu.wpi.first.math.controller.PIDController;
-// import edu.wpi.first.math.controller.ProfiledPIDController;
-// import edu.wpi.first.math.geometry.Pose2d;
-// import edu.wpi.first.math.geometry.Rotation2d;
-// import edu.wpi.first.math.geometry.Translation2d;
-// import edu.wpi.first.math.trajectory.Trajectory;
-// import edu.wpi.first.math.trajectory.TrajectoryConfig;
-// import edu.wpi.first.math.trajectory.TrajectoryGenerator;
-
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-// import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
-// import frc.robot.Constants.AutoConstants;
-// import frc.robot.Constants.DriveConstants;
-import frc.robot.Constants.OIConstants;
-import frc.robot.commands.*;
-import frc.robot.registry.Registry;
-import frc.robot.registry.Registry;
-import frc.robot.registry.bus.events.CustomEvent;
+import frc.robot.commands.AutoBumpLeaveBalance;
+import frc.robot.config.ControllerButtons;
+import frc.robot.config.util.classes.Button;
+import frc.robot.config.util.enums.Buttons;
 import frc.robot.registry.bus.events.MillisecondEvent;
-import frc.robot.registry.example.ExampleCommand;
-import frc.robot.registry.example.event.EventExample;
-// import java.util.List;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.SubsystemTest;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.concurrent.Executors;
@@ -50,21 +32,21 @@ import java.util.concurrent.TimeUnit;
  */
 public class RobotContainer {
 
+  final SubsystemTest test = new SubsystemTest();
   // The robot's subsystems
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
-
   private final ArmSubsystem m_armSubsystem = new ArmSubsystem();
   private final ClawSubsystem m_clawSubsystem = new ClawSubsystem();
 
   // The driver's controller
-
   // 4765: converted this from xbox to joystick
   Joystick m_driverController = new Joystick(
     Constants.I_CONSTANTS.kDriverControllerPort
   );
 
   // Arm Controller
-  XboxController m_armController = new XboxController(1);
+  XboxController m_armController = new XboxController(0);
+  ControllerButtons buttons = new ControllerButtons(0, "test");
 
   // 4765: converted this from xbox to joystick
   // XboxController m_driverController = new
@@ -76,10 +58,8 @@ public class RobotContainer {
   public RobotContainer() {
     configureButtonBindings();
 
-    // Registry.COMMAND_REGISTRY.registerCommands();
-
-    // This will register the events in SubsystemTest()
-    // Registry.EVENT_BUS.register(new SubsystemTest());
+    buttons.addButton(new Button(2, Buttons.A));
+    test.setDefaultCommand(new RunCommand(() -> test.tick(this.buttons), test));
 
     m_robotDrive.setDefaultCommand(
       new RunCommand(

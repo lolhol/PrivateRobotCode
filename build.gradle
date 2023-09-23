@@ -48,6 +48,9 @@ def includeDesktopSupport = true
 // Defining my dependencies. In this case, WPILib (+ friends), and vendor libraries.
 // Also defines JUnit 5.
 dependencies {
+    // Gson is a json file parser library from google
+    implementation 'com.google.code.gson:gson:2.8.8'
+
     implementation wpi.java.deps.wpilib()
     implementation wpi.java.vendor.java()
 

@@ -4,30 +4,22 @@
 
 package frc.robot;
 
-import com.revrobotics.ColorSensorV3.Register;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.registry.Registry;
-import frc.robot.registry.bus.main.EventBus;
-import frc.robot.registry.command.main.CommandRegistry;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
- * numerical or boolean
- * constants. This class should not be used for any other purpose. All constants
- * should be declared
- * globally (i.e. public final static). Do not put anything functional in this class.
+ * numerical or boolean constants. This class should not be used for any other purpose. All constants
+ * should be declared globally (i.e. public final static). Do not put anything functional in this class.
  *
- * <p>
- * It is advised to statically import this class (or one of its inner classes)
- * wherever the
+ * It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
-public final class Constants {
 
-  // This cuts down basically the constants to only 8 instead of 1000+
+public final class Constants {
 
   static final Constants CONST = new Constants();
 
